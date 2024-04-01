@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище FunPayMTModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="AdditionalInfo" Type="nvarchar" MaxLength="255" />
+          <Property Name="LocationCountry" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="int" Nullable="false" />
+          <Property Name="SellerID" Type="int" />
+          <Property Name="ReviewText" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Sellers">
+          <Key>
+            <PropertyRef Name="SellerID" />
+          </Key>
+          <Property Name="SellerID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="RegistrationDate" Type="date" />
+          <Property Name="ProductSold" Type="nvarchar" MaxLength="100" />
+          <Property Name="Reviews" Type="nvarchar(max)" />
+          <Property Name="AdditionalInfo" Type="nvarchar" MaxLength="255" />
+          <Property Name="LocationCountry" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="SupportEmails">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="EmailID" Type="int" Nullable="false" />
+          <Property Name="SupportID" Type="int" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="SupportPhones">
+          <Key>
+            <PropertyRef Name="PhoneID" />
+          </Key>
+          <Property Name="PhoneID" Type="int" Nullable="false" />
+          <Property Name="SupportID" Type="int" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SupportTeam">
+          <Key>
+            <PropertyRef Name="SupportID" />
+          </Key>
+          <Property Name="SupportID" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AdditionalInfo" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <Association Name="FK__Reviews__SellerI__4F7CD00D">
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="0..1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sellers">
+              <PropertyRef Name="SellerID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="SellerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupportEm__Suppo__5535A963">
+          <End Role="SupportTeam" Type="Self.SupportTeam" Multiplicity="0..1" />
+          <End Role="SupportEmails" Type="Self.SupportEmails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupportTeam">
+              <PropertyRef Name="SupportID" />
+            </Principal>
+            <Dependent Role="SupportEmails">
+              <PropertyRef Name="SupportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupportPh__Suppo__59063A47">
+          <End Role="SupportTeam" Type="Self.SupportTeam" Multiplicity="0..1" />
+          <End Role="SupportPhones" Type="Self.SupportPhones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupportTeam">
+              <PropertyRef Name="SupportID" />
+            </Principal>
+            <Dependent Role="SupportPhones">
+              <PropertyRef Name="SupportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище FunPayMTModelContainer">
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sellers" EntityType="Self.Sellers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupportEmails" EntityType="Self.SupportEmails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupportPhones" EntityType="Self.SupportPhones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SupportTeam" EntityType="Self.SupportTeam" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Reviews__SellerI__4F7CD00D" Association="Self.FK__Reviews__SellerI__4F7CD00D">
+            <End Role="Sellers" EntitySet="Sellers" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupportEm__Suppo__5535A963" Association="Self.FK__SupportEm__Suppo__5535A963">
+            <End Role="SupportTeam" EntitySet="SupportTeam" />
+            <End Role="SupportEmails" EntitySet="SupportEmails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupportPh__Suppo__59063A47" Association="Self.FK__SupportPh__Suppo__59063A47">
+            <End Role="SupportTeam" EntitySet="SupportTeam" />
+            <End Role="SupportPhones" EntitySet="SupportPhones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FunPayMTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AdditionalInfo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LocationCountry" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Reviews">
+          <Key>
+            <PropertyRef Name="ReviewID" />
+          </Key>
+          <Property Name="ReviewID" Type="Int32" Nullable="false" />
+          <Property Name="SellerID" Type="Int32" />
+          <Property Name="ReviewText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Sellers" Relationship="Self.FK__Reviews__SellerI__4F7CD00D" FromRole="Reviews" ToRole="Sellers" />
+        </EntityType>
+        <EntityType Name="Sellers">
+          <Key>
+            <PropertyRef Name="SellerID" />
+          </Key>
+          <Property Name="SellerID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="0" />
+          <Property Name="ProductSold" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Reviews" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AdditionalInfo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LocationCountry" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Reviews1" Relationship="Self.FK__Reviews__SellerI__4F7CD00D" FromRole="Sellers" ToRole="Reviews" />
+        </EntityType>
+        <EntityType Name="SupportEmails">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="EmailID" Type="Int32" Nullable="false" />
+          <Property Name="SupportID" Type="Int32" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SupportTeam" Relationship="Self.FK__SupportEm__Suppo__5535A963" FromRole="SupportEmails" ToRole="SupportTeam" />
+        </EntityType>
+        <EntityType Name="SupportPhones">
+          <Key>
+            <PropertyRef Name="PhoneID" />
+          </Key>
+          <Property Name="PhoneID" Type="Int32" Nullable="false" />
+          <Property Name="SupportID" Type="Int32" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SupportTeam" Relationship="Self.FK__SupportPh__Suppo__59063A47" FromRole="SupportPhones" ToRole="SupportTeam" />
+        </EntityType>
+        <EntityType Name="SupportTeam">
+          <Key>
+            <PropertyRef Name="SupportID" />
+          </Key>
+          <Property Name="SupportID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AdditionalInfo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SupportEmails" Relationship="Self.FK__SupportEm__Suppo__5535A963" FromRole="SupportTeam" ToRole="SupportEmails" />
+          <NavigationProperty Name="SupportPhones" Relationship="Self.FK__SupportPh__Suppo__59063A47" FromRole="SupportTeam" ToRole="SupportPhones" />
+        </EntityType>
+        <Association Name="FK__Reviews__SellerI__4F7CD00D">
+          <End Role="Sellers" Type="Self.Sellers" Multiplicity="0..1" />
+          <End Role="Reviews" Type="Self.Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sellers">
+              <PropertyRef Name="SellerID" />
+            </Principal>
+            <Dependent Role="Reviews">
+              <PropertyRef Name="SellerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupportEm__Suppo__5535A963">
+          <End Role="SupportTeam" Type="Self.SupportTeam" Multiplicity="0..1" />
+          <End Role="SupportEmails" Type="Self.SupportEmails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupportTeam">
+              <PropertyRef Name="SupportID" />
+            </Principal>
+            <Dependent Role="SupportEmails">
+              <PropertyRef Name="SupportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SupportPh__Suppo__59063A47">
+          <End Role="SupportTeam" Type="Self.SupportTeam" Multiplicity="0..1" />
+          <End Role="SupportPhones" Type="Self.SupportPhones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SupportTeam">
+              <PropertyRef Name="SupportID" />
+            </Principal>
+            <Dependent Role="SupportPhones">
+              <PropertyRef Name="SupportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FunPayMTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Reviews" EntityType="Self.Reviews" />
+          <EntitySet Name="Sellers" EntityType="Self.Sellers" />
+          <EntitySet Name="SupportEmails" EntityType="Self.SupportEmails" />
+          <EntitySet Name="SupportPhones" EntityType="Self.SupportPhones" />
+          <EntitySet Name="SupportTeam" EntityType="Self.SupportTeam" />
+          <AssociationSet Name="FK__Reviews__SellerI__4F7CD00D" Association="Self.FK__Reviews__SellerI__4F7CD00D">
+            <End Role="Sellers" EntitySet="Sellers" />
+            <End Role="Reviews" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupportEm__Suppo__5535A963" Association="Self.FK__SupportEm__Suppo__5535A963">
+            <End Role="SupportTeam" EntitySet="SupportTeam" />
+            <End Role="SupportEmails" EntitySet="SupportEmails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SupportPh__Suppo__59063A47" Association="Self.FK__SupportPh__Suppo__59063A47">
+            <End Role="SupportTeam" EntitySet="SupportTeam" />
+            <End Role="SupportPhones" EntitySet="SupportPhones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище FunPayMTModelContainer" CdmEntityContainer="FunPayMTEntities">
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="FunPayMTModel.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+                <ScalarProperty Name="LocationCountry" ColumnName="LocationCountry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="FunPayMTModel.Reviews">
+              <MappingFragment StoreEntitySet="Reviews">
+                <ScalarProperty Name="ReviewID" ColumnName="ReviewID" />
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+                <ScalarProperty Name="ReviewText" ColumnName="ReviewText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sellers">
+            <EntityTypeMapping TypeName="FunPayMTModel.Sellers">
+              <MappingFragment StoreEntitySet="Sellers">
+                <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="ProductSold" ColumnName="ProductSold" />
+                <ScalarProperty Name="Reviews" ColumnName="Reviews" />
+                <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+                <ScalarProperty Name="LocationCountry" ColumnName="LocationCountry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupportEmails">
+            <EntityTypeMapping TypeName="FunPayMTModel.SupportEmails">
+              <MappingFragment StoreEntitySet="SupportEmails">
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="SupportID" ColumnName="SupportID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupportPhones">
+            <EntityTypeMapping TypeName="FunPayMTModel.SupportPhones">
+              <MappingFragment StoreEntitySet="SupportPhones">
+                <ScalarProperty Name="PhoneID" ColumnName="PhoneID" />
+                <ScalarProperty Name="SupportID" ColumnName="SupportID" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SupportTeam">
+            <EntityTypeMapping TypeName="FunPayMTModel.SupportTeam">
+              <MappingFragment StoreEntitySet="SupportTeam">
+                <ScalarProperty Name="SupportID" ColumnName="SupportID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

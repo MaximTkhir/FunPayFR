@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1226e0a6bd554552ae40867baf2e6670" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="FunPayMTModel.Clients" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunPayMTModel.Reviews" Width="1.5" PointX="8" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunPayMTModel.Sellers" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunPayMTModel.SupportEmails" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunPayMTModel.SupportPhones" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FunPayMTModel.SupportTeam" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <AssociationConnector Association="FunPayMTModel.FK__Reviews__SellerI__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="FunPayMTModel.FK__SupportEm__Suppo__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="FunPayMTModel.FK__SupportPh__Suppo__59063A47" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
